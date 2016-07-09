@@ -1,0 +1,134 @@
+<!-- INCLUDE overall_header.html -->
+<link href="{ROOT_PATH}ext/flyzoo/chat/styles/prosilver/theme/common.css?assets_version={T_ASSETS_VERSION}" rel="stylesheet" />
+<h1>{L_SETTINGS}</h1>
+ 
+<form id="acp_board" method="post" action="{U_ACTION}">
+    <fieldset>
+        
+		<dl>
+			<dt> 
+			<div class="flyzoo_api_block">
+				<a target="_blank" href="https://www.flyzoo.co?utm_source=phpbb-plugin" class="flyzoo_btn_home">
+				&nbsp;
+				</a><br/>       
+				<a target="_blank" href="http://dashboard.flyzoo.co?utm_source=phpbb-plugin" class="flyzoo_btn_dashboard">&nbsp;
+				</a><br/>
+				<a target="_blank" href="https://www.flyzoo.co/support?utm_source=phpbb-plugin-help" class="flyzoo_btn_help">
+				&nbsp;
+				</a>
+			</div>
+
+			</dt>
+				 
+			<dd>
+				<label for="username">{L_FLYZOO_CHAT_APPID}{L_COLON}</label><br/>
+				<input class="medium" type="text" name="FlyzooApplicationID" id="FlyzooApplicationID" maxlength="999" value="{FLYZOO_CHAT_APPID}"/>
+				 <br/><br/>
+				 <label for="username">{L_FLYZOO_CHAT_API_SECRET}{L_COLON}</label><br/>
+				
+				<input class="medium" type="text" name="FlyzooAPISecretKey" id="FlyzooAPISecretKey" maxlength="50" value="{FLYZOO_CHAT_API_SECRET}"/>
+				<br /> {L_FLYZOO_CHAT_API_SECRET_NOTE}
+			
+		 <br />
+		<hr /><br />
+            <h1>Options</h1>
+				<br />
+				 <!-- Single sign on -->
+				<input type="checkbox" id="FlyzooApiEnabled" name="FlyzooApiEnabled" <!-- IF FLYZOO_CHAT_ENABLESSO -->checked="checked"<!-- ENDIF -->>
+               {L_FLYZOO_CHAT_SSO_NOTE}
+                <br />
+				<br />
+				
+                <!-- Single sign on -->
+				<input type="checkbox" id="FlyzooEnableBuddyPress" name="FlyzooEnableBuddyPress" <!-- IF FLYZOO_CHAT_ENABLEBPRESS -->checked="checked"<!-- ENDIF -->>
+                {L_FLYZOO_CHAT_BPRESS_NOTE}
+				<br />
+                <br />
+				
+                <!-- Hide in Admin -->
+                <input type="checkbox" id="FlyzooHideInDashboard" name="FlyzooHideInDashboard" <!-- IF FLYZOO_CHAT_HIDEINADMIN -->checked="checked"<!-- ENDIF -->>
+                {L_FLYZOO_CHAT_HIDEINADMIN_NOTE}
+				<br />
+                <br />
+                <!-- Hide on Mobile -->
+                <input type="checkbox" id="FlyzooHideOnMobile" name="FlyzooHideOnMobile" <!-- IF FLYZOO_CHAT_HIDEONMOB -->checked="checked"<!-- ENDIF -->>
+                {L_FLYZOO_CHAT_HIDEONMOB_NOTE}
+				<br />
+                <br />
+                <strong>PAGE FILTERS</strong><br /><br>
+           Show Flyzoo
+                <select id="FlyzooPageFilterMode" name="FlyzooPageFilterMode">
+                    <option <!-- IF FLYZOO_CHAT_FITERMODE == 0 -->selected="selected"<!-- ENDIF --> value="0">on all pages</option>
+                    <option <!-- IF FLYZOO_CHAT_FITERMODE == 1 -->selected="selected"<!-- ENDIF --> value="1">only on the listed pages</option>
+                    <option <!-- IF FLYZOO_CHAT_FITERMODE == 2 -->selected="selected"<!-- ENDIF --> value="2">on all pages except those listed</option>
+                </select>
+                <div id="FlyzooPageFilterDiv" style="display:none">
+                    <ul>
+                        <li>Enter only one path per line</li>
+                        <li>Always start the path with a forward slash (/)</li>
+                        <li>Use '*' for the wildcard (Ex. /2014/posts/* to select all the posts)</li>
+                    </ul>
+
+
+                    <textarea style="width: 450px; height: 90px" name="FlyzooPageFilterList" id="FlyzooPageFilterList">{FLYZOO_CHAT_PAGEFITERLIST}</textarea>
+
+                </div><br /><br>
+                  <strong>WIDGET LANGUAGE</strong><br /><br>
+             <select id="FlyzooLanguage" name="FlyzooLanguage">
+                  <option value="auto">auto (use browser language)</option>
+                  <option <!-- IF FLYZOO_CHAT_LANG == 'en' -->selected="selected"<!-- ENDIF --> value="en">English</option>
+                  <option <!-- IF FLYZOO_CHAT_LANG == 'es' -->selected="selected"<!-- ENDIF --> value="es">Spanish</option>
+                  <option <!-- IF FLYZOO_CHAT_LANG == 'fr' -->selected="selected"<!-- ENDIF --> value="fr">French</option>
+                  <option <!-- IF FLYZOO_CHAT_LANG == 'it' -->selected="selected"<!-- ENDIF --> value="it">Italian</option>
+                  <option <!-- IF FLYZOO_CHAT_LANG == 'bg' -->selected="selected"<!-- ENDIF --> value="bg">Bulgarian</option>
+                  <option <!-- IF FLYZOO_CHAT_LANG == 'cs' -->selected="selected"<!-- ENDIF --> value="cs">Czech</option>
+                  <option <!-- IF FLYZOO_CHAT_LANG == 'da' -->selected="selected"<!-- ENDIF --> value="da">Danish</option>
+                  <option <!-- IF FLYZOO_CHAT_LANG == 'de' -->selected="selected"<!-- ENDIF --> value="de">German (Standard)</option>              
+                  <option <!-- IF FLYZOO_CHAT_LANG == 'fa' -->selected="selected"<!-- ENDIF --> value="fa">Farsi</option>
+                  <option <!-- IF FLYZOO_CHAT_LANG == 'fi' -->selected="selected"<!-- ENDIF --> value="fi">Finnish</option>
+                  <option <!-- IF FLYZOO_CHAT_LANG == 'he' -->selected="selected"<!-- ENDIF --> value="he">Hebrew</option>                
+                  <option <!-- IF FLYZOO_CHAT_LANG == 'ja' -->selected="selected"<!-- ENDIF --> value="ja">Japanese</option>
+                  <option <!-- IF FLYZOO_CHAT_LANG == 'na' -->selected="selected"<!-- ENDIF --> value="nl">Dutch</option>
+                  <option <!-- IF FLYZOO_CHAT_LANG == 'pl' -->selected="selected"<!-- ENDIF --> value="pl">Polish</option>
+                  <option <!-- IF FLYZOO_CHAT_LANG == 'pt-BR' -->selected="selected"<!-- ENDIF --> value="pt-BR">Portuguese (Brazil)</option>
+                  <option <!-- IF FLYZOO_CHAT_LANG == 'pt-PT' -->selected="selected"<!-- ENDIF --> value="pt-PT">Portuguese (Portugal)</option>
+                  <option <!-- IF FLYZOO_CHAT_LANG == 'ru' -->selected="selected"<!-- ENDIF --> value="ru">Russian</option>
+                  <option <!-- IF FLYZOO_CHAT_LANG == 'sk' -->selected="selected"<!-- ENDIF --> value="sk">Slovak</option>
+                  <option <!-- IF FLYZOO_CHAT_LANG == 'sr' -->selected="selected"<!-- ENDIF --> value="sr">Serbian</option>
+                  <option <!-- IF FLYZOO_CHAT_LANG == 'sv' -->selected="selected"<!-- ENDIF --> value="sv">Swedish</option>
+                  <option <!-- IF FLYZOO_CHAT_LANG == 'tr' -->selected="selected"<!-- ENDIF --> value="tr">Turkish</option>
+                  <option <!-- IF FLYZOO_CHAT_LANG == 'vi' -->selected="selected"<!-- ENDIF --> value="vi">Vietnamese</option>
+                  <option <!-- IF FLYZOO_CHAT_LANG == 'zh' -->selected="selected"<!-- ENDIF --> value="zh">Chinese</option>           
+                  <option <!-- IF FLYZOO_CHAT_LANG == 'el' -->selected="selected"<!-- ENDIF --> value="el">Greek</option>           
+
+
+                </select>
+                <br /><br />
+                 <h1>Advanced</h1>
+				 <br />
+                   <strong>CUSTOM LOADER</strong><br />
+                  Just skip this :) This will be provided by the Support Team in case you need a particular fix for your site.
+             <p>
+                <input type="text" style="width: 400px" name="FlyzooCustomLoader" id="FlyzooCustomLoader" value="{FLYZOO_CHAT_CUSTOMLOADER}" maxlength="999" />
+				<br /><br />
+                   <strong>Sub Directory</strong><br />
+                  Just skip this if your site is running over domain root. Else input subdirectory name after domain name here.
+             <p>
+                <input type="text" style="width: 400px" name="SubDirectory" id="SubDirectory" value="{FLYZOO_CHAT_SITESUBDIRECTORY}" maxlength="999" />
+
+            </p>
+
+
+			 
+        <p class="submit-buttons">
+            <input class="button1" type="submit" id="submit" name="submit" value="{L_SUBMIT}" />&nbsp;
+            <input class="button2" type="reset" id="reset" name="reset" value="{L_RESET}" />
+        </p>
+
+        {S_FORM_TOKEN}
+		</dd>
+		</dl> 
+    </fieldset>
+</form>
+
+<!-- INCLUDE overall_footer.html -->

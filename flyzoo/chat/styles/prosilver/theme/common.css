@@ -1,0 +1,24 @@
+.flyzoo_api_block{
+	width: 300px;
+	display:block;
+	margin: 0 auto;
+}
+.flyzoo_btn_home{
+	border-radius:5px;border:0px;
+	background:url('img/logo.jpg');
+	height:300px;
+	width:300px;
+	display:block;
+}
+.flyzoo_btn_dashboard{
+	background:url('img/dashboard.jpg');
+	height:60px;
+	width:300px;
+	display:block;
+}
+.flyzoo_btn_help{
+	background:url('img/support.jpg');
+	height:60px;
+	width:300px;
+	display:block;
+}

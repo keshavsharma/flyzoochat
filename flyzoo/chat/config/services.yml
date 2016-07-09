@@ -1,0 +1,9 @@
+services:
+    flyzoo.chat.listener:       # name of the service you want to register
+        class: flyzoo\chat\event\main_listener
+        arguments:
+            - '@controller.helper'
+            - '@template'
+            - '@user'
+        tags:
+            - { name: event.listener }
