@@ -16,10 +16,10 @@ if(/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine
 	return isMobile;
 }
 </script>
-<!-- IF C_FLYZOO_CHAT_HIDEINADMIN != 1 && C_ALLOW -->
+<!-- IF !C_FLYZOO_CHAT_HIDEINADMIN -->
 <!-- Flyzoo Script V3 -->
 <script type="text/javascript">
-if(!(flyzoo_chat_is_mobile() && {C_FLYZOO_CHAT_HIDEONMOB} == 1 )){
+if(!(flyzoo_chat_is_mobile() && '{C_FLYZOO_CHAT_HIDEONMOB}' == 1 )){
 	(function () { 
 		window._FlyzooApplicationId="{C_FLYZOO_CHAT_APPID}";
 		var fz = document.createElement("script"); 
@@ -30,30 +30,21 @@ if(!(flyzoo_chat_is_mobile() && {C_FLYZOO_CHAT_HIDEONMOB} == 1 )){
 		s.parentNode.insertBefore(fz, s)
 	})()
 	 
-	<!-- IF C_FLYZOO_CHAT_ENABLESSO -->
+	
 	 
 	var FlyzooApi = FlyzooApi || { };
+	FlyzooApi.Language = '{C_FLYZOO_CHAT_LANG}';
+	<!-- IF C_FLYZOO_CHAT_ENABLESSO -->
 	FlyzooApi.UserId = '{C_FLYZOO_CHAT_USER_ID}';
 	FlyzooApi.UserName = '{C_FLYZOO_CHAT_USER_NAME}';
 	FlyzooApi.Email = '{C_FLYZOO_CHAT_EMAIL}';
 	FlyzooApi.Signature = '{C_FLYZOO_CHAT_SIGNATURE}';
 	FlyzooApi.AccessRoles = '{C_FLYZOO_CHAT_ACCESS_ROLES}';
-	FlyzooApi.Language = '{FLYZOO_CHAT_LANG}';
-	FlyzooApi.Friends = '{C_FLYZOO_CHAT_FRIENDS}';
-	<!-- IF C_FLYZOO_CHAT_AVATAR -->
-	FlyzooApi.Avatar = '{BOARD_URL}{C_FLYZOO_CHAT_AVATAR}';
-	<!-- ELSE -->
+	FlyzooApi.Friends = {C_FLYZOO_CHAT_FRIENDS};
 	FlyzooApi.Avatar = '{C_FLYZOO_CHAT_AVATAR}';
-	<!-- ENDIF -->
-
-	<!-- IF  C_FLYZOO_CHAT_PROFILE  -->
-	FlyzooApi.Profile = '{BOARD_URL}{C_FLYZOO_CHAT_PROFILE}';
-	<!-- ELSE -->
 	FlyzooApi.Profile = '{C_FLYZOO_CHAT_PROFILE}';
 	<!-- ENDIF -->
-	
-}
-<!-- ENDIF -->
+} 
 </script>
 	
 <!-- ENDIF -->

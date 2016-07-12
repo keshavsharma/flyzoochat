@@ -37,6 +37,7 @@ class first_install extends migration
         return array(
             array('config.add', array('acme_demo_goodbye', 0, true)),
 			array('config.add', array('adduser_version', '1.0.0')),
+			
             array('module.add', array(
                 'acp',
                 'ACP_CAT_USERS',

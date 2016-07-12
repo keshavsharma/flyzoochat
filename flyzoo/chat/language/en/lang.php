@@ -55,10 +55,8 @@ $lang = array_merge($lang, array(
 	 
 	'FLYZOO_CHAT_APPID' => 'Enter your Flyzoo Application ID',
 	'FLYZOO_CHAT_API_SECRET' => 'Enter your API Secret Key',
-	'FLYZOO_CHAT_API_SECRET_NOTE' => '(<strong>NOTE:</strong> this is currently optional. <strong>Starting from December, 1st 2015 API Secret Key  will be mandatory to enable SSO</strong>! Please
-               take a moment to log into the dashboard and get your Secret Key from SETUP &gt; INSTALLATION).',
-	'FLYZOO_CHAT_SSO_NOTE' => ' <strong>Enable Single Sign On</strong> - check this to allow users log into the chat with their existing PHPBB Account.',
-	'FLYZOO_CHAT_BPRESS_NOTE' => '<strong>Sync User Data</strong> - check this to integrate Flyzoo with BuddyPress/Ultimate Member/Users Ultra and others (sync friends, profile url, avatar)',
+	'FLYZOO_CHAT_API_SECRET_NOTE' => '',
+	'FLYZOO_CHAT_SSO_NOTE' => ' <strong>Enable Single Sign On & Sync User Data</strong> - check this to allow users log into the chat with their existing PHPBB Account.',
 	'FLYZOO_CHAT_HIDEINADMIN_NOTE' => '<strong>Hide in PHPBB Admin</strong> - check this to hide the widget on the PHPBB Admin. ',
 	'FLYZOO_CHAT_HIDEONMOB_NOTE' => '<strong>Hide on Mobile Devices</strong> - check this to hide the widget on mobile devices',
 	

@@ -39,15 +39,16 @@ class main_listener implements EventSubscriberInterface
 	public function add_page_header_link()
 	{
 		global $config;
-		$data=array('C_FLYZOO_CHAT_APPID'=> '', 'C_FLYZOO_CHAT_API_SECRET'=> '', 'C_FLYZOO_CHAT_USER_ID'=> '', 'C_FLYZOO_CHAT_USER_NAME'=> '', 'C_FLYZOO_CHAT_EMAIL'=> '', 'C_FLYZOO_CHAT_SIGNATURE'=> '', 'C_FLYZOO_CHAT_ACCESS_ROLES'=> '', 'C_FLYZOO_CHAT_LANG'=> '', 'C_FLYZOO_CHAT_FRIENDS'=> '', 'C_FLYZOO_CHAT_AVATAR'=> '', 'C_FLYZOO_CHAT_PROFILE'=> '', 'C_FLYZOO_CHAT_HIDEINADMIN'=> '', 'C_FLYZOO_CHAT_ENABLESSO'=> false, 'C_FLYZOO_CHAT_HIDEONMOB'=> false );
+		$data=array('C_FLYZOO_CHAT_APPID'=> '', 'C_FLYZOO_CHAT_API_SECRET'=> '', 'C_FLYZOO_CHAT_USER_ID'=> '', 'C_FLYZOO_CHAT_USER_NAME'=> '', 'C_FLYZOO_CHAT_EMAIL'=> '', 'C_FLYZOO_CHAT_SIGNATURE'=> '', 'C_FLYZOO_CHAT_ACCESS_ROLES'=> '', 'C_FLYZOO_CHAT_LANG'=> '', 'C_FLYZOO_CHAT_FRIENDS'=> "''", 'C_FLYZOO_CHAT_AVATAR'=> '', 'C_FLYZOO_CHAT_PROFILE'=> '', 'C_FLYZOO_CHAT_HIDEINADMIN'=> false, 'C_FLYZOO_CHAT_ENABLESSO'=> false, 'C_FLYZOO_CHAT_HIDEONMOB'=> false );
 		$d = $this->user->data;
+		 
 		$site_url = generate_board_url(true)."/";
 		if(!empty($config['FLYZOO_CHAT_SITESUBDIRECTORY'])){
 			$site_url .= $config['FLYZOO_CHAT_SITESUBDIRECTORY']."/";
 		}
 		 
 		 
-		//[user_avatar] => [user_avatar_type] => [user_avatar_width] => 0 [user_avatar_height]
+		 
 		// if user is login
 		if($d["user_id"] != 1)
 		{
@@ -58,6 +59,8 @@ class main_listener implements EventSubscriberInterface
 			$data['C_FLYZOO_CHAT_USER_ID'] = $d["user_id"]; 
 			$data['C_FLYZOO_CHAT_USER_NAME'] = $d["username"];
 			$data['C_FLYZOO_CHAT_EMAIL'] = $d["user_email"]; 
+			$data['C_FLYZOO_CHAT_FRIENDS'] = json_encode($this->getFriends($d["user_id"]));
+			$data['C_FLYZOO_CHAT_ACCESS_ROLES'] = $this->getGroup($d["group_id"]);
 		}
 		$data['C_FLYZOO_CHAT_HIDEONMOB'] = empty($config['FLYZOO_CHAT_HIDEONMOB']) ? '' : $config['FLYZOO_CHAT_HIDEONMOB'];
 		$data['C_FLYZOO_CHAT_ENABLESSO'] = empty($config['FLYZOO_CHAT_ENABLESSO']) ? '' : $config['FLYZOO_CHAT_ENABLESSO'];
@@ -65,7 +68,7 @@ class main_listener implements EventSubscriberInterface
 		$secret = empty($config['FLYZOO_CHAT_API_SECRET']) ? '' : $config['FLYZOO_CHAT_API_SECRET'];
 		$data['C_FLYZOO_CHAT_API_SECRET'] = $secret;
 		$data['C_FLYZOO_CHAT_LANG'] = empty($config['FLYZOO_CHAT_LANG']) ? '' : $config['FLYZOO_CHAT_LANG'];
-		$data['C_FLYZOO_CHAT_HIDEINADMIN'] = empty($config['FLYZOO_CHAT_HIDEINADMIN']) ? false : $config['FLYZOO_CHAT_HIDEINADMIN'];
+		 
 		
 		$customLoader = empty($config['FLYZOO_CHAT_CUSTOMLOADER']) ? '' : trim( $config['FLYZOO_CHAT_CUSTOMLOADER'] );
 		 
@@ -94,30 +97,34 @@ class main_listener implements EventSubscriberInterface
         );
         $event['lang_set_ext'] = $lang_set_ext;
     }
+	 
 	private function is_page_allowed( $mode,  $pagelist) {
-      
-      $matched = FALSE;
-       
-      if ($mode == "0" || $mode =="") return TRUE;
-      if ( $pagelist != '') {
-        if(function_exists('mb_strtolower')) {
-          $pagelist = mb_strtolower($pagelist);
-          $currentpath = mb_strtolower($_SERVER['REQUEST_URI']);
-        }
-        else {
-          $pagelist = strtolower( $pagelist);
-          $currentpath = strtolower($_SERVER['REQUEST_URI']);
-        }
-        if ($this->flyzoo_check_regex($currentpath,"/adm/*")) {
-            return TRUE;
-        }
-        $matched = $this->flyzoo_check_regex($currentpath, $pagelist);
-        $matched = ($mode == '2')?(!$matched):$matched;
-      }
-      else if($mode == '2'){
-        $matched = TRUE;
-      }
-      return $matched;
+		global $request, $config;
+		$matched = FALSE;
+		$req_uri  = $request->server('SERVER_NAME') .htmlspecialchars_decode($request->server('REQUEST_URI'));
+
+		$req_uri  = 'http' . ( $request->server('HTTPS') !="" ? 's' : '') . '://' . $request->server('HTTP_HOST').  $request->server('REQUEST_URI');
+
+		if ($mode == "0" || $mode =="") return TRUE;
+		if ( $pagelist != '') {
+		if(function_exists('mb_strtolower')) {
+			$pagelist = mb_strtolower($pagelist);
+			$currentpath = mb_strtolower($req_uri);
+		}
+		else {
+			$pagelist = strtolower( $pagelist);
+			$currentpath = strtolower($req_uri);
+		}
+		if ($this->flyzoo_check_regex($currentpath, 'http' . ( $request->server('HTTPS') !="" ? 's' : '') . '://' . $request->server('HTTP_HOST').$config['FLYZOO_CHAT_SITESUBDIRECTORY']."/adm/*")) {
+			return TRUE;
+		}
+		$matched = $this->flyzoo_check_regex($currentpath, $pagelist);
+		$matched = ($mode == '2')?(!$matched):$matched;
+		}
+		else if($mode == '2'){
+			$matched = TRUE;
+		}
+		return $matched;
     }
 	private function flyzoo_check_regex($path, $patterns) {
       $to_replace = array(
@@ -127,6 +134,38 @@ class main_listener implements EventSubscriberInterface
       $replacements = array('|','.*');
       $patterns_fixed = preg_quote($patterns, '/');
       $regexps[$patterns] = '/^(' . preg_replace($to_replace, $replacements, $patterns_fixed) . ')$/';
+	  
       return (bool) preg_match($regexps[$patterns], $path);
     }
+	
+	private function getFriends($id){
+		global $db;
+		if( !(defined("USERS_TABLE") && defined("ZEBRA_TABLE"))){
+			return array();
+		}
+		// Are there any friends & foes?
+		$sql = 'SELECT z.zebra_id as user_id FROM '.USERS_TABLE.' u JOIN '.ZEBRA_TABLE.' z ON u.user_id = z.zebra_id WHERE z.friend = 1 and z.user_id='.$id;
+		 
+		$result			= $db->sql_query($sql);
+		$u = array();
+		while ($row = $db->sql_fetchrow($result))
+		{
+			$u[] = $row['user_id'];
+		}
+		return $u;
+	}
+	private function getGroup($id){
+		global $db;
+		$u = array();
+		// Are there any friends & foes?
+		$sql = 'SELECT group_name FROM '.GROUPS_TABLE.' WHERE group_id='.$id;
+		 
+		$result			= $db->sql_query($sql);
+		
+		while ($row = $db->sql_fetchrow($result))
+		{
+			$u[] = $row['group_name'];
+		}
+		return implode(",", $u);
+	}
 }

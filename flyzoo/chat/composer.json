@@ -3,15 +3,23 @@
    "type": "phpbb-extension",
    "description": "flyzoo chat Extension for phpBB 3.1",
    "homepage": "https://github.com/keshavsharma/flyzoochat",
-   "version": "0.1.0",
+   "version": "1.0.0",
    "time": "2013-11-05",
    "license": "GPL-2.0",
-   "authors": [{
-      "name": "Keshav Sharma",
-      "email": "keshav.kalia@yahoo.com",
-      "homepage": "https://github.com/keshavsharma/flyzoochat",
-      "role": "Lead Developer"
-   }],
+   "authors": [
+	   {
+		  "name": "REPLACE NAME HERE",
+		  "email": "EMAIL@XYZ.com",
+		  "homepage": "https://github.com/keshavsharma/flyzoochat",
+		  "role": "Owner"
+	   }, 
+	   {
+		  "name": "Keshav Sharma",
+		  "email": "keshav.kalia@yahoo.com",
+		  "homepage": "https://github.com/keshavsharma/flyzoochat",
+		  "role": "Lead Developer"
+	   }
+   ],
    "require": {
       "php": ">=5.3.3",
       "composer/installers": "~1.0"
